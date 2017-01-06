@@ -1,0 +1,305 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>D3 Water Tank</title>
+  <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+  <div id="empty-space"></div>
+  <div id="wrapper" class="wrapper">
+  </div>
+  <button id="onetext" onclick="setOneText()">Set one text</button>
+  <button id="twotext" onclick="setTwoText()">Set two texts</button>
+  <br>
+  <br>
+  <button id="color" onclick="fillColor()">Fill Color</button>
+  <button id="color" onclick="backFontColor()">Back Font Color</button>
+  <button id="color" onclick="frontFontColor()">Front Font Color</button>
+  <button id="color" onclick="topFillBackFontColor()">Top Fill Back Font Color</button>
+  <button id="color" onclick="bottomFillBackFontColor()">Bottom Fill Back Font Color</button>
+  <button id="color" onclick="topFillColor()">Top Fill Color</button>
+  <button id="color" onclick="bottomFillColor()">Bottom Fill Color</button>
+  <br>
+  <br>
+  <button id="shrink" onclick="shrink()">Shrink</button>
+  <button id="enlarge" onclick="enlarge()">Enlarge</button>
+  <br>
+  <br>
+  <button id="high" onclick="high()">High</button>
+  <button id="mid" onclick="mid()">Mid</button>
+  <button id="low" onclick="low()">Low</button>
+  <br>
+  <br>
+  <button onclick="addArrow()">Add arrow</button>
+  <button onclick="removeArrow()">Remove arrow</button>
+  <button onclick="upArrow()">Up arrow</button>
+  <button onclick="downArrow()">Down arrow</button>
+  <button onclick="defaultArrow()">Default arrow</button>
+  <button onclick="topFillArrowColor()">Top fill arrow color</button>
+  <button onclick="bottomFillBackArrowColor()">Bottom fill arrow color</button>
+  <button onclick="frontArrowColor()">Front arrow color</button>
+  <button onclick="backArrowColor()">Back arrow color</button>
+  <br>
+  <br>
+  <button onclick="setDecimalZero()">No Decimal</button>
+  <button onclick="setDecimalOne()">One Decimal</button>
+  <button onclick="setDecimalTwo()">Two Decimal</button>
+  <br>
+  <br>
+  <button onclick="tower()">Tower</button>
+  <button onclick="round()">Round</button>
+  <br>
+  <br>
+  <button onclick="destroy()">Destroy</button>
+  <br>
+  <br>
+  <button onclick="updateLookupTableValue()">Set Random Lookup Value</button>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.3/d3.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+  <script src="js/d3-water-tank.js"></script>
+  <script>
+  let that = this;
+
+  function getRandom() {
+    return Math.floor(Math.random() * 100);
+  }
+
+  function getNow() {
+    return Date().slice(16, 24);
+  }
+  randomColor = ["#C62828", "#BA68C8", "#1976D2", "#FFB74D", "#607D8B"];
+
+  function getRandomColor() {
+    return randomColor[Math.floor(Math.random() * 5)];
+  }
+
+
+  let thresholds = [{
+    name: 'Alarm High',
+    value: 90,
+    type: 'High',
+    alarm: true
+  }, {
+    name: 'Pump On',
+    value: 55,
+    type: 'High',
+    alarm: false
+  }, {
+    name: 'Pump On',
+    value: 40,
+    type: 'Low',
+    alarm: false
+  }, {
+    name: 'Alarm Low',
+    value: 10,
+    type: 'Low',
+    alarm: true
+  }];
+
+  let options = {
+    tankType: 'tower',
+    fillValue: 55,
+    fillUnit: "ft",
+    supportLabelPadding: 5,
+    frontFontColor: "#003B42",
+    thresholds: thresholds,
+    lookupTableValue: 1700,
+    lookupTableValueUnit: 'gal',
+    changeRateValueArrowEnabled: true,
+    changeRateValue: 3,
+    changeRateValueUnit: 'gal/min'
+  }
+
+  let tank = $('.wrapper').analogTank(options);
+
+  $(".wrapper").resizable({
+    stop: function(event, ui) {
+      tank.redraw();
+    }
+  });
+
+  let that = this;
+
+  let randomColor = ["#C62828", "#BA68C8", "#1976D2", "#FFB74D", "#607D8B"];
+
+  function getRandomColor() {
+    return randomColor[Math.floor(Math.random() * 5)];
+  }
+
+  function getNow() {
+    return Date().slice(16, 24);
+  }
+
+  function getRandom() {
+    return Math.floor(Math.random() * 100);
+  }
+  tank.click(function() {
+    var randomVal = getRandom();
+    tank.updateHeight(randomVal);
+  });
+
+  function setOneText() {
+    tank.setSupportLabelText(getNow());
+  }
+
+  function setTwoText() {
+    tank.setSupportLabelText(getNow(), "bottom label");
+  }
+
+  function fillColor() {
+    tank.updateColor(getRandomColor());
+  }
+
+  function backFontColor() {
+    tank.updateFillColor({
+      backFontColor: getRandomColor()
+    });
+  }
+
+  function frontFontColor() {
+    tank.updateFillColor({
+      frontFontColor: getRandomColor()
+    });
+  }
+
+  function topFillBackFontColor() {
+    tank.updateFillColor({
+      topFillBackFontColor: getRandomColor()
+    });
+  }
+
+  function bottomFillBackFontColor() {
+    tank.updateFillColor({
+      bottomFillBackFontColor: getRandomColor()
+    });
+  }
+
+  function topFillColor() {
+    tank.updateFillColor({
+      topFillColor: getRandomColor()
+    });
+  }
+
+  function bottomFillColor() {
+    tank.updateFillColor({
+      bottomFillColor: getRandomColor()
+    });
+  }
+
+  function shrink() {
+    document.getElementsByClassName('wrapper')[0].setAttribute("style", "width:200px;height:200px;");
+    tank.redraw();
+  }
+
+  function enlarge() {
+    document.getElementsByClassName('wrapper')[0].setAttribute("style", "width:400px;height:400px;");
+    tank.redraw();
+  }
+
+  function high() {
+    tank.updateHeight(90);
+  }
+
+  function mid() {
+    tank.updateHeight(55);
+  }
+
+  function low() {
+    tank.updateHeight(0);
+  }
+
+  function addArrow() {
+    tank.updateArrow({
+      enable: true
+    });
+  }
+
+  function removeArrow() {
+    tank.updateArrow({
+      destroy: true
+    });
+  }
+
+  function upArrow() {
+    tank.updateArrow({
+      direction: "up"
+    });
+  }
+
+  function downArrow() {
+    tank.updateArrow({
+      direction: "down"
+    });
+  }
+
+  function defaultArrow() {
+    tank.updateArrow({
+      direction: "none"
+    });
+  }
+
+  function topFillArrowColor() {
+    tank.updateArrow({
+      topFillBackArrowColor: getRandomColor()
+    });
+  }
+
+  function bottomFillBackArrowColor() {
+    tank.updateArrow({
+      bottomFillBackArrowColor: getRandomColor()
+    });
+  }
+
+  function frontArrowColor() {
+    tank.updateArrow({
+      frontArrowColor: getRandomColor()
+    });
+  }
+
+  function backArrowColor() {
+    tank.updateArrow({
+      backArrowColor: getRandomColor()
+    });
+  }
+
+  function setDecimalZero() {
+    tank.setDecimal(0);
+  }
+
+  function setDecimalOne() {
+    tank.setDecimal(1);
+  }
+
+  function setDecimalTwo() {
+    tank.setDecimal(2);
+  }
+
+  function tower() {
+    tank.tankType = 'tower';
+    delete tank.topMarkerFontColor;
+    delete tank.bottomMarkerFontColor;
+    tank.redraw();
+  }
+
+  function round() {
+    tank.tankType = 'round';
+    tank.topMarkerFontColor = "#fafafa";
+    tank.bottomMarkerFontColor = "#fafafa";
+    tank.redraw();
+  }
+
+  function destroy() {
+    tank.destroy();
+  }
+
+  function updateLookupTableValue() {
+    tank.updateLookupTableValue(parseInt(Math.random() * 1000))
+  }
+  </script>
+</body>
+
+</html>
