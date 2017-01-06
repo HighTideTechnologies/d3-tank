@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>D3 Water Tank</title>
   <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+  <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css.map">
+  <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/fonts/fontawesome-webfont.svg">
+  <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/fonts/fontawesome-webfont.eot">
+  <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/fonts/fontawesome-webfont.ttf">
   <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 
@@ -71,7 +76,7 @@
   function getNow() {
     return Date().slice(16, 24);
   }
-  randomColor = ["#C62828", "#BA68C8", "#1976D2", "#FFB74D", "#607D8B"];
+  let randomColor = ["#C62828", "#BA68C8", "#1976D2", "#FFB74D", "#607D8B"];
 
   function getRandomColor() {
     return randomColor[Math.floor(Math.random() * 5)];
@@ -121,8 +126,6 @@
       tank.redraw();
     }
   });
-
-  let randomColor = ["#C62828", "#BA68C8", "#1976D2", "#FFB74D", "#607D8B"];
 
   function getRandomColor() {
     return randomColor[Math.floor(Math.random() * 5)];
